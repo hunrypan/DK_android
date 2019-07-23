@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/aha"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal"
+                android:text="Hello !" />
+
+            <ImageView
+                android:id="@+id/tree"
+                android:layout_width="match_parent"
+                android:layout_height="160dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Choose your taste"
+                android:paddingLeft="8dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/syrup1"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="8dp"
+                    android:text="Syrup1" />
+
+                <SeekBar
+                    android:id="@+id/seekBar1"
+                    android:max="100"
+                    android:layout_width="250dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/syrup2"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="8dp"
+                    android:text="Syrup2" />
+
+                <SeekBar
+                    android:id="@+id/seekBar2"
+                    android:max="100"
+                    android:layout_width="250dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/syrup3"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="8dp"
+                    android:text="Syrup3" />
+
+                <SeekBar
+                    android:id="@+id/seekBar3"
+                    android:max="100"
+                    android:layout_width="250dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/syrup4"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="8dp"
+                    android:text="Syrup4" />
+
+                <SeekBar
+                    android:id="@+id/seekBar4"
+                    android:max="100"
+                    android:layout_width="250dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/syrup5"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="8dp"
+                    android:text="Syrup5" />
+
+                <SeekBar
+                    android:id="@+id/seekBar5"
+                    android:max="100"
+                    android:layout_width="250dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/syrup6"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="8dp"
+                    android:text="Syrup6" />
+
+                <SeekBar
+                    android:id="@+id/seekBar6"
+                    android:max="100"
+                    android:layout_width="250dp"
+                    android:layout_height="30dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_custom"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+    </LinearLayout>
