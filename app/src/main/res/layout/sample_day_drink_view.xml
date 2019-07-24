@@ -1,0 +1,17 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.e.drinkstation.DayDrinkView
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:background="#FCF9F9"
+        android:paddingStart="20dp"
+        android:paddingBottom="20dp"
+        app:exampleColor="#000"
+        app:exampleDimension="30dp"
+        app:exampleDrawable="@drawable/glasswater"
+        app:exampleString="Hello, DayDrinkView"/>
+
+</FrameLayout>

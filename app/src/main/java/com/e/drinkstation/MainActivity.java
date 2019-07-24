@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -258,6 +259,14 @@ public class MainActivity extends AppCompatActivity {
         {
             scene = Scene.getSceneForLayout(mainview, R.layout.today, getApplicationContext());
             TransitionManager.go(scene, transition);
+
+            ImageView imgv = (ImageView) findViewById(R.id.imagev_cup);
+            imgv.setImageDrawable(getDrawable(R.drawable.cup));
+
+           //LinearLayout linearLayout = findViewById(R.id.showused);
+            //DayDrinkView myView = new DayDrinkView(this);
+            //linearLayout.addView(myView);
+
         }else if (id == R.id.menu_info)
         {
             scene = Scene.getSceneForLayout(mainview, R.layout.myinfo, getApplicationContext());
