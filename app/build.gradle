@@ -34,7 +34,9 @@ dependencies {
 
     implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
 
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    //implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation 'com.amap.api:map3d:latest.integration'
 }

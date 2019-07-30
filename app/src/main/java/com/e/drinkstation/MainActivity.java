@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.amap.api.maps.MapView;
 import com.google.zxing.WriterException;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -72,10 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         Scene scene;
         Transition transition = new AutoTransition();
-
-
-
-
 
         final ViewGroup mainview = findViewById(R.id.mainview);
         scene = Scene.getSceneForLayout(mainview, R.layout.drank, getApplicationContext());
@@ -324,6 +321,12 @@ public class MainActivity extends AppCompatActivity {
         {
             scene = Scene.getSceneForLayout(mainview, R.layout.map, getApplicationContext());
             TransitionManager.go(scene, transition);
+
+            MapView mapView = (MapView)findViewById(R.id.map);
+
+            mapView.onCreate(null);
+
+
         }else if (id == R.id.menu_DK)
         {
             scene = Scene.getSceneForLayout(mainview, R.layout.drank, getApplicationContext());
