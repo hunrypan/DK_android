@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.DownloadManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -42,6 +43,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.zxing.WriterException;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -51,7 +60,9 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONObject;
 
+import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean mScanning;
 
     private final static String SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
+
+    private MapView mapView;
+
+    private RequestQueue requestQueue;
+
 
 
     private ScanCallback scanCallback = new ScanCallback() {
@@ -442,10 +458,9 @@ public class MainActivity extends AppCompatActivity {
             scene = Scene.getSceneForLayout(mainview, R.layout.map, getApplicationContext());
             TransitionManager.go(scene, transition);
 
-            MapView mapView = (MapView)findViewById(R.id.map);
-
+            mapView = (MapView) findViewById(R.id.map);
             mapView.onCreate(null);
-
+            loadDS();
 
         }else if (id == R.id.menu_DK)
         {
@@ -562,6 +577,38 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC);
         textToSpeech.speak(str, TextToSpeech.QUEUE_FLUSH, bundle, null);
+    }
+
+
+    public void loadDS() {
+        LatLng latLng = new LatLng(39.906901, 116.397972);
+        final Marker marker = mapView.getMap().addMarker(new MarkerOptions().position(latLng).title("aha").snippet("DefaultMarker"));
+
+        /*
+        String url = "http://my-json-feed";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("aha", "onResponse: " + response.toString());
+                        //textView.setText("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+                        Log.d("aha",error.toString());
+
+                    }
+                });
+
+        requestQueue.add(jsonObjectRequest);
+
+*/
+
     }
 
 
