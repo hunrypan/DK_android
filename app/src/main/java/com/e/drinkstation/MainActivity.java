@@ -1,9 +1,26 @@
 package com.e.drinkstation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanFilter;
+import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.ParcelUuid;
+import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.AutoTransition;
@@ -35,7 +52,10 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -54,6 +74,71 @@ public class MainActivity extends AppCompatActivity {
 
     public  String your_weight;
 
+    public TextToSpeech textToSpeech;
+
+    private BluetoothDevice esp32_ble;
+
+    private BluetoothLeScanner scanner;
+
+    private BluetoothAdapter bluetoothAdapter;
+
+    private boolean mScanning;
+
+    private final static String SERVICE_UUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
+
+
+    private ScanCallback scanCallback = new ScanCallback() {
+
+        private ScanCallback scanCallbackend = new ScanCallback() {
+            @Override
+            public void onScanFailed(int errorCode) {
+                super.onScanFailed(errorCode);
+            }
+        };
+
+        @Override
+        public void onScanResult(int callbackType, ScanResult result) {
+            super.onScanResult(callbackType, result);
+            if (esp32_ble == null) {
+                esp32_ble = result.getDevice();
+                Log.d("aha", "esp32_ble is " + esp32_ble.getName());
+
+/*
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        speakhello("Hi hunry finded " + esp32_ble.getName() + ". Can i help you?");
+                    }
+                });
+*/
+                speakhello("Hi hunry finded " + esp32_ble.getName() + ". Can i help you?");
+
+
+            } else {
+                if (mScanning)
+                    scanner.stopScan(scanCallbackend);
+                mScanning = false;
+            }
+        }
+    };
+
+
+    private void scanLeDevice() {
+
+        Log.d("aha", "to scanLeDevice: ");
+
+
+        scanner = bluetoothAdapter.getBluetoothLeScanner();
+
+        ScanSettings settings = new ScanSettings.Builder().setScanMode(ScanSettings.CALLBACK_TYPE_FIRST_MATCH).build();
+
+        List<ScanFilter> filters = new ArrayList<>();
+        ScanFilter filter = new ScanFilter.Builder().setServiceUuid(ParcelUuid.fromString(SERVICE_UUID)).build();
+        filters.add(filter);
+        mScanning = true;
+        scanner.startScan(filters, settings, scanCallback);
+    }
+
 
     public void mqttpub(String s) throws MqttException {
         MqttMessage message = new MqttMessage(s.getBytes());
@@ -71,8 +156,39 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("aha", "ble admin not granted");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_ADMIN}, 101);
+        } else if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            Log.d("aha", "access coarse location not granted");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 102);
+        }else if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.MODIFY_AUDIO_SETTINGS) != PackageManager.PERMISSION_GRANTED) {
+
+            Log.d("aha", "modify audio setting not granted");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.MODIFY_AUDIO_SETTINGS}, 103);
+        }
+
+
+
         Scene scene;
         Transition transition = new AutoTransition();
+
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if (i == TextToSpeech.SUCCESS)
+                {
+                   int result = textToSpeech.setLanguage(Locale.US);
+                   if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED)
+                   {
+                       Log.d("aha","lang not supported");
+                   }
+                }else {
+                    Log.d("aha","texttospeech init failed");
+                }
+            }
+        });
 
         final ViewGroup mainview = findViewById(R.id.mainview);
         scene = Scene.getSceneForLayout(mainview, R.layout.drank, getApplicationContext());
@@ -166,6 +282,10 @@ public class MainActivity extends AppCompatActivity {
         } catch (MqttException e) {
             e.printStackTrace();
         }
+
+        final BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        bluetoothAdapter = manager.getAdapter();
+        scanLeDevice();
     }
 
     public void topay() throws MqttException {
@@ -332,6 +452,10 @@ public class MainActivity extends AppCompatActivity {
             scene = Scene.getSceneForLayout(mainview, R.layout.drank, getApplicationContext());
             TransitionManager.go(scene, transition);
 
+            Log.d("aha", "speak ?");
+
+            Log.d("aha", "yes speak");
+
             final TextView textView = (TextView)findViewById(R.id.aha);
             if (your_name != null)
             {
@@ -388,4 +512,57 @@ public class MainActivity extends AppCompatActivity {
         TransitionManager.go(scene, transition);
         makeQR(pustr);
     }
+
+
+    @Override
+    protected void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 101: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("aha", "onRequestPermissionsResult: " + "get ble adnim permission");
+                } else {
+                    Log.d("aha", "onRequestPermissionsResult: " + " not get ble adnim permission");
+                }
+                return;
+            }
+
+            case 102: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("aha", "onRequestPermissionsResult: " + "get ACCESS_COARSE_LOCATION permission");
+                } else {
+                    Log.d("aha", "onRequestPermissionsResult: " + " not get ACCESS_COARSE_LOCATION permission");
+                }
+                return;
+            }
+
+
+            case 103: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("aha", "onRequestPermissionsResult: " + "get MODIFY_AUDIO_SETTINGS  permission");
+                } else {
+                    Log.d("aha", "onRequestPermissionsResult: " + " not get  MODIFY_AUDIO_SETTINGS permission");
+                }
+                return;
+            }
+
+            default:
+        }
+    }
+
+
+    public void speakhello(String str) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC);
+        textToSpeech.speak(str, TextToSpeech.QUEUE_FLUSH, bundle, null);
+    }
+
+
 }
