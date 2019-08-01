@@ -51,6 +51,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.zxing.WriterException;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -171,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        requestQueue = Volley.newRequestQueue(this);
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
             Log.d("aha", "ble admin not granted");
@@ -584,8 +587,8 @@ public class MainActivity extends AppCompatActivity {
         LatLng latLng = new LatLng(39.906901, 116.397972);
         final Marker marker = mapView.getMap().addMarker(new MarkerOptions().position(latLng).title("aha").snippet("DefaultMarker"));
 
-        /*
-        String url = "http://my-json-feed";
+
+        String url = "http://www.windcoffee.club/mapinfo";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -593,21 +596,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("aha", "onResponse: " + response.toString());
-                        //textView.setText("Response: " + response.toString());
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
                         Log.d("aha",error.toString());
 
                     }
                 });
 
         requestQueue.add(jsonObjectRequest);
-
-*/
 
     }
 
