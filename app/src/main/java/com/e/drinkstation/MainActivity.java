@@ -42,7 +42,10 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
@@ -50,6 +53,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.zxing.WriterException;
@@ -61,6 +65,8 @@ import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.ReferenceQueue;
@@ -584,29 +590,66 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void loadDS() {
-        LatLng latLng = new LatLng(39.906901, 116.397972);
-        final Marker marker = mapView.getMap().addMarker(new MarkerOptions().position(latLng).title("aha").snippet("DefaultMarker"));
-
 
         String url = "http://www.windcoffee.club/mapinfo";
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d("aha", "onResponse: " + response.toString());
+
+                if (response.length() > 0)
+                {
+                    for (int i=0;i<response.length();i++) {
+                        try {
+                            JSONObject theobj = response.getJSONObject(i);
+                            double la = theobj.getDouble("la");
+                            double ln = theobj.getDouble("ln");
+                            String DS_id = theobj.getString("DS_id");
+                            String info = theobj.getString("info");
+                            if (i==0)
+                            {
+                                CameraUpdate mCameraUpdate = CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(la, ln), 18, 0, 0));
+                                mapView.getMap().animateCamera(mCameraUpdate);
+                            }
+                            mapView.getMap().addMarker(new MarkerOptions().position(new LatLng(la,ln)).title(DS_id).snippet(info));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("aha", error.toString());
+            }
+        });
+
+
+        /*
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("aha", "onResponse: " + response.toString());
+
+
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("aha",error.toString());
+                        Log.d("aha", error.toString());
 
                     }
                 });
+                */
 
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(jsonArrayRequest);
 
     }
 
