@@ -41,16 +41,11 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <com.e.drinkstation.DayDrinkView
+            <com.e.drinkstation.avinfoView
                 android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:background="#FAF7F7"
-                android:paddingLeft="0dp"
-                android:paddingBottom="0dp"
-                app:exampleColor="#000"
-                app:exampleDimension="20dp"
-                app:exampleDrawable="@drawable/glasswater"
-                app:exampleString="80%"/>
+                android:layout_height="180dp">
+
+            </com.e.drinkstation.avinfoView>
 
         </LinearLayout>
 
