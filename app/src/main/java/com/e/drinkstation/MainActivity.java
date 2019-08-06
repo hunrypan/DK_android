@@ -37,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -216,20 +217,39 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final ViewGroup mainview = findViewById(R.id.mainview);
-        scene = Scene.getSceneForLayout(mainview, R.layout.drank, getApplicationContext());
+        scene = Scene.getSceneForLayout(mainview, R.layout.drank1, getApplicationContext());
         TransitionManager.go(scene, transition);
 
+        ImageView base1 = (ImageView)findViewById(R.id.base1);
+        base1.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base2 = (ImageView)findViewById(R.id.base2);
+        base2.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base3 = (ImageView)findViewById(R.id.base3);
+        base3.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base4 = (ImageView)findViewById(R.id.base4);
+        base4.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base5 = (ImageView)findViewById(R.id.base5);
+        base5.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base6 = (ImageView)findViewById(R.id.base6);
+        base6.setImageDrawable(getDrawable(R.drawable.base1));
 
-        final TextView textView = (TextView)findViewById(R.id.aha);
-        if (your_name != null)
-        {
-            textView.setText("Hello " + your_name + " !");
-        }
+        final ImageView water1 = (ImageView)findViewById(R.id.water1);
+        water1.setImageDrawable(getDrawable(R.drawable.energy1));
+        final ImageView water2 = (ImageView)findViewById(R.id.water2);
+        water2.setImageDrawable(getDrawable(R.drawable.orange));
+        final ImageView water3 = (ImageView)findViewById(R.id.water3);
+        water3.setImageDrawable(getDrawable(R.drawable.raspberry));
+        final ImageView water4 = (ImageView)findViewById(R.id.water4);
+        water4.setImageDrawable(getDrawable(R.drawable.cucumber));
+        final ImageView water5 = (ImageView)findViewById(R.id.water5);
+        water5.setImageDrawable(getDrawable(R.drawable.relax));
+        final ImageView water6 = (ImageView)findViewById(R.id.water6);
+        water6.setImageDrawable(getDrawable(R.drawable.lemon));
 
-        final ImageView imageView = (ImageView)findViewById(R.id.tree);
-        imageView.setImageDrawable(getDrawable(R.drawable.tree));
 
-        final Button thebt = (Button) findViewById(R.id.bt_custom);
+
+        final ImageButton thebt = (ImageButton) findViewById(R.id.bt_custom);
+        thebt.setImageResource(R.drawable.glasswater);
         thebt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -473,23 +493,37 @@ public class MainActivity extends AppCompatActivity {
 
         }else if (id == R.id.menu_DK)
         {
-            scene = Scene.getSceneForLayout(mainview, R.layout.drank, getApplicationContext());
+            scene = Scene.getSceneForLayout(mainview, R.layout.drank1, getApplicationContext());
             TransitionManager.go(scene, transition);
 
-            Log.d("aha", "speak ?");
+            ImageView base1 = (ImageView)findViewById(R.id.base1);
+            base1.setImageDrawable(getDrawable(R.drawable.base1));
+            ImageView base2 = (ImageView)findViewById(R.id.base2);
+            base2.setImageDrawable(getDrawable(R.drawable.base1));
+            ImageView base3 = (ImageView)findViewById(R.id.base3);
+            base3.setImageDrawable(getDrawable(R.drawable.base1));
+            ImageView base4 = (ImageView)findViewById(R.id.base4);
+            base4.setImageDrawable(getDrawable(R.drawable.base1));
+            ImageView base5 = (ImageView)findViewById(R.id.base5);
+            base5.setImageDrawable(getDrawable(R.drawable.base1));
+            ImageView base6 = (ImageView)findViewById(R.id.base6);
+            base6.setImageDrawable(getDrawable(R.drawable.base1));
 
-            Log.d("aha", "yes speak");
+            ImageView water1 = (ImageView)findViewById(R.id.water1);
+            water1.setImageDrawable(getDrawable(R.drawable.energy1));
+            ImageView water2 = (ImageView)findViewById(R.id.water2);
+            water2.setImageDrawable(getDrawable(R.drawable.orange));
+            ImageView water3 = (ImageView)findViewById(R.id.water3);
+            water3.setImageDrawable(getDrawable(R.drawable.raspberry));
+            ImageView water4 = (ImageView)findViewById(R.id.water4);
+            water4.setImageDrawable(getDrawable(R.drawable.cucumber));
+            ImageView water5 = (ImageView)findViewById(R.id.water5);
+            water5.setImageDrawable(getDrawable(R.drawable.relax));
+            ImageView water6 = (ImageView)findViewById(R.id.water6);
+            water6.setImageDrawable(getDrawable(R.drawable.lemon));
 
-            final TextView textView = (TextView)findViewById(R.id.aha);
-            if (your_name != null)
-            {
-                textView.setText("Hello " + your_name + " !");
-            }
-
-            final ImageView imageView = (ImageView)findViewById(R.id.tree);
-            imageView.setImageDrawable(getDrawable(R.drawable.tree));
-
-            final Button thebt = (Button) findViewById(R.id.bt_custom);
+            final ImageButton thebt = (ImageButton) findViewById(R.id.bt_custom);
+            thebt.setImageResource(R.drawable.glasswater);
             thebt.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -535,6 +569,7 @@ public class MainActivity extends AppCompatActivity {
         scene = Scene.getSceneForLayout(mainview, R.layout.qrcode, getApplicationContext());
         TransitionManager.go(scene, transition);
         makeQR(pustr);
+        //makeQR("http://www.windcoffee.club");
     }
 
 

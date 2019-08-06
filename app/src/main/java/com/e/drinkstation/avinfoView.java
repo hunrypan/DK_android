@@ -13,7 +13,7 @@ public class avinfoView extends View {
     private Paint mPaint;
     private TextPaint textPaint;
     public int angle = 300;
-    public int av_angle = 0;
+    private int av_angle = 0;
 
     public avinfoView(Context context) {
         super(context);
@@ -23,6 +23,14 @@ public class avinfoView extends View {
         super(context, attrs);
             }
 
+
+    public void setAngle(int angle) {
+        this.angle = angle;
+    }
+
+    public int getAngle() {
+        return angle;
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -39,21 +47,15 @@ public class avinfoView extends View {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
 
-        textPaint = new TextPaint();
-        textPaint.setTextAlign(Paint.Align.CENTER);
-
-        String info = String.format("%.2f",angle/360.0);
 
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(Color.GREEN);
         mPaint.setStrokeWidth(30);
 
-        textPaint.setTextSize(60);
-        textPaint.setColor(Color.BLACK);
 
         if (av_angle < angle)
         {
-            av_angle = av_angle +2;
+            av_angle = av_angle +3;
 
             canvas.drawArc(30,30,getWidth()-30,getHeight()-30,0,av_angle,false,mPaint);
 
@@ -61,11 +63,6 @@ public class avinfoView extends View {
 
         }else {
             canvas.drawArc(30,30,getWidth()-30,getHeight()-30,0,angle,false,mPaint);
-
-            canvas.drawText(info,
-                    getWidth()/2 -20,
-                    getHeight()/2,
-                    textPaint);
         }
 
     }

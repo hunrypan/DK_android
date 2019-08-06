@@ -157,7 +157,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/bt_custom"
+                android:id="@+id/bt_custom_old"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="OK"
