@@ -1,70 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ImageView
+        android:id="@+id/page3imgv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#80FFC107"
-            android:text="Your Order"
-            android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#F7F2F2"
-            android:textSize="30sp"
-            android:textStyle="bold|italic" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:text="$3.00"
-            android:textAlignment="center"
-            android:textColor="#3F51B5"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/bt_pay1"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#CC2196F3"
-            android:padding="10dp"
-            android:text="Pay with PayPal"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/bt_pay2"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/darker_gray"
-            android:padding="10dp"
-            android:text="Pay with Card"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+        app:srcCompat="@drawable/screen3"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:onClick="do111"
+        android:id="@+id/page3BT"
+        android:layout_width="162dp"
+        android:layout_height="162dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginBottom="176dp"
+        android:background="@drawable/roundbt81"
         android:alpha="0"
-        android:background="@drawable/roundedbutton"
-        android:text="Button" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/rectanglebutton"
-        android:text="Button" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -285,12 +285,6 @@ public class MainActivity extends AppCompatActivity {
     public void topay() throws MqttException {
         long time = new Date().getTime();
 
-        Scene scene;
-        Transition transition = new AutoTransition();
-
-        final ViewGroup mainview = findViewById(R.id.mainview);
-
-
         SeekBar seek1 = (SeekBar) findViewById(R.id.seekBar1);
         SeekBar seek2 = (SeekBar) findViewById(R.id.seekBar2);
         SeekBar seek3 = (SeekBar) findViewById(R.id.seekBar3);
@@ -308,39 +302,7 @@ public class MainActivity extends AppCompatActivity {
         pustr = "QDRIN_SUCC:" + Integer.toString(syrup1) + "_" + Integer.toString(syrup2) + "_"  + Integer.toString(syrup3) + "_" + Integer.toString(syrup4) + "_" + Integer.toString(syrup5) + "_" + Integer.toString(syrup6);
         //mqttpub(Integer.toString(syrup1) + "_" + Integer.toString(syrup2) + "_"  + Integer.toString(syrup3) + "_" + Integer.toString(syrup4) );
 
-        scene = Scene.getSceneForLayout(mainview, R.layout.pay, getApplicationContext());
-        TransitionManager.go(scene, transition);
-
-        final Button bt1 = (Button) findViewById(R.id.bt_pay1);
-
-        final Button bt2 = (Button) findViewById(R.id.bt_pay2);
-
-        bt1.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    toQR();
-                    return false;
-                }
-                return  false;
-            }
-        });
-
-        bt2.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    toQR();
-                    return false;
-                }
-                return  false;
-            }
-        });
-
+        showpagepay();
 
         //makeQR("ok");
         //QREEncoder qreEncoder = new
@@ -381,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
         }else if (id == R.id.menu_info)
         {
             scene = Scene.getSceneForLayout(mainview, R.layout.myinfo, getApplicationContext());
-            TransitionManager.go(scene, transition); final Button bt1 = (Button) findViewById(R.id.bt_pay1);
+            TransitionManager.go(scene, transition);
 
             final EditText t1 = (EditText) findViewById(R.id.username);
             final EditText t2 = (EditText) findViewById(R.id.userweight);
@@ -442,53 +404,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else if (id == R.id.menu_DK)
         {
-            scene = Scene.getSceneForLayout(mainview, R.layout.drank1, getApplicationContext());
-            TransitionManager.go(scene, transition);
-
-            ImageView base1 = (ImageView)findViewById(R.id.base1);
-            base1.setImageDrawable(getDrawable(R.drawable.base1));
-            ImageView base2 = (ImageView)findViewById(R.id.base2);
-            base2.setImageDrawable(getDrawable(R.drawable.base1));
-            ImageView base3 = (ImageView)findViewById(R.id.base3);
-            base3.setImageDrawable(getDrawable(R.drawable.base1));
-            ImageView base4 = (ImageView)findViewById(R.id.base4);
-            base4.setImageDrawable(getDrawable(R.drawable.base1));
-            ImageView base5 = (ImageView)findViewById(R.id.base5);
-            base5.setImageDrawable(getDrawable(R.drawable.base1));
-            ImageView base6 = (ImageView)findViewById(R.id.base6);
-            base6.setImageDrawable(getDrawable(R.drawable.base1));
-
-            ImageView water1 = (ImageView)findViewById(R.id.water1);
-            water1.setImageDrawable(getDrawable(R.drawable.energy1));
-            ImageView water2 = (ImageView)findViewById(R.id.water2);
-            water2.setImageDrawable(getDrawable(R.drawable.orange));
-            ImageView water3 = (ImageView)findViewById(R.id.water3);
-            water3.setImageDrawable(getDrawable(R.drawable.raspberry));
-            ImageView water4 = (ImageView)findViewById(R.id.water4);
-            water4.setImageDrawable(getDrawable(R.drawable.cucumber));
-            ImageView water5 = (ImageView)findViewById(R.id.water5);
-            water5.setImageDrawable(getDrawable(R.drawable.relax));
-            ImageView water6 = (ImageView)findViewById(R.id.water6);
-            water6.setImageDrawable(getDrawable(R.drawable.lemon));
-
-            final ImageButton thebt = (ImageButton) findViewById(R.id.bt_custom);
-            thebt.setImageResource(R.drawable.glasswater);
-            thebt.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
-                    {
-                        try {
-                            topay();
-                        } catch (MqttException e) {
-                            e.printStackTrace();
-                        }
-                        return false;
-                    }
-                    return  false;
-                }
-            });
+            showpage1();
         }
 
         return super.onOptionsItemSelected(item);
@@ -613,7 +529,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
-                    showpage3();
+                    showpagecustom();
                     return false;
                 }
                 return  false;
@@ -622,7 +538,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void showpage3()
+    public void showpagepay()
+    {
+        final ViewGroup mainview = findViewById(R.id.mainview);
+        Scene scene = Scene.getSceneForLayout(mainview, R.layout.pay, getApplicationContext());
+        Transition transition = new AutoTransition();
+        TransitionManager.go(scene, transition);
+        ImageView base1 = (ImageView)findViewById(R.id.page3imgv);
+        base1.setImageDrawable(getDrawable(R.drawable.screen3));
+
+        Button bt = (Button)findViewById(R.id.page3BT);
+        bt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    toQR();
+                    return false;
+                }
+                return  false;
+            }
+        });
+    }
+
+
+    public void showpagecustom()
     {
         final ViewGroup mainview = findViewById(R.id.mainview);
         Scene scene = Scene.getSceneForLayout(mainview, R.layout.drank1, getApplicationContext());
@@ -657,8 +598,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        final ImageButton thebt = (ImageButton) findViewById(R.id.bt_custom);
-        thebt.setImageResource(R.drawable.glasswater);
+        final ImageView thebt = (ImageView) findViewById(R.id.imgvpaybt);
+        thebt.setImageResource(R.drawable.paybt);
         thebt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
