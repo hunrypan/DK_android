@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 */
-                speakhello("Hi hunry finded " + esp32_ble.getName() + ". Can i help you?");
+                speakhello("Hi henry finded " + esp32_ble.getName() + ". Can i help you?");
 
 
             } else {
@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         requestQueue = Volley.newRequestQueue(this);
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
@@ -194,11 +195,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("aha", "modify audio setting not granted");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.MODIFY_AUDIO_SETTINGS}, 103);
         }
-
-
-
-        Scene scene;
-        Transition transition = new AutoTransition();
 
         textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -216,56 +212,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final ViewGroup mainview = findViewById(R.id.mainview);
-        scene = Scene.getSceneForLayout(mainview, R.layout.drank1, getApplicationContext());
-        TransitionManager.go(scene, transition);
-
-        ImageView base1 = (ImageView)findViewById(R.id.base1);
-        base1.setImageDrawable(getDrawable(R.drawable.base1));
-        ImageView base2 = (ImageView)findViewById(R.id.base2);
-        base2.setImageDrawable(getDrawable(R.drawable.base1));
-        ImageView base3 = (ImageView)findViewById(R.id.base3);
-        base3.setImageDrawable(getDrawable(R.drawable.base1));
-        ImageView base4 = (ImageView)findViewById(R.id.base4);
-        base4.setImageDrawable(getDrawable(R.drawable.base1));
-        ImageView base5 = (ImageView)findViewById(R.id.base5);
-        base5.setImageDrawable(getDrawable(R.drawable.base1));
-        ImageView base6 = (ImageView)findViewById(R.id.base6);
-        base6.setImageDrawable(getDrawable(R.drawable.base1));
-
-        final ImageView water1 = (ImageView)findViewById(R.id.water1);
-        water1.setImageDrawable(getDrawable(R.drawable.energy1));
-        final ImageView water2 = (ImageView)findViewById(R.id.water2);
-        water2.setImageDrawable(getDrawable(R.drawable.orange));
-        final ImageView water3 = (ImageView)findViewById(R.id.water3);
-        water3.setImageDrawable(getDrawable(R.drawable.raspberry));
-        final ImageView water4 = (ImageView)findViewById(R.id.water4);
-        water4.setImageDrawable(getDrawable(R.drawable.cucumber));
-        final ImageView water5 = (ImageView)findViewById(R.id.water5);
-        water5.setImageDrawable(getDrawable(R.drawable.relax));
-        final ImageView water6 = (ImageView)findViewById(R.id.water6);
-        water6.setImageDrawable(getDrawable(R.drawable.lemon));
+        showpage1();
 
 
-
-        final ImageButton thebt = (ImageButton) findViewById(R.id.bt_custom);
-        thebt.setImageResource(R.drawable.glasswater);
-        thebt.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
-                {
-                    try {
-                        topay();
-                    } catch (MqttException e) {
-                        e.printStackTrace();
-                    }
-                    return false;
-                }
-                return  false;
-            }
-        });
 
         String clientId = MqttClient.generateClientId();
         client = new MqttAndroidClient(getApplication(), "tcp://94.191.14.111:2000", clientId);
@@ -621,6 +570,111 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putInt(TextToSpeech.Engine.KEY_PARAM_STREAM, AudioManager.STREAM_MUSIC);
         textToSpeech.speak(str, TextToSpeech.QUEUE_FLUSH, bundle, null);
+    }
+
+
+    public void showpage1()
+    {
+        final ViewGroup mainview = findViewById(R.id.mainview);
+        Scene scene = Scene.getSceneForLayout(mainview, R.layout.page1, getApplicationContext());
+        Transition transition = new AutoTransition();
+        TransitionManager.go(scene, transition);
+        ImageView base1 = (ImageView)findViewById(R.id.page1imgv);
+        base1.setImageDrawable(getDrawable(R.drawable.screen));
+
+        Button bt = (Button)findViewById(R.id.page1BT);
+        bt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    showpage2();
+                    return false;
+                }
+                return  false;
+            }
+        });
+    }
+
+    public void showpage2()
+    {
+        final ViewGroup mainview = findViewById(R.id.mainview);
+        Scene scene = Scene.getSceneForLayout(mainview, R.layout.page2, getApplicationContext());
+        Transition transition = new AutoTransition();
+        TransitionManager.go(scene, transition);
+        ImageView base1 = (ImageView)findViewById(R.id.page2imgv);
+        base1.setImageDrawable(getDrawable(R.drawable.screen2));
+
+        Button bt = (Button)findViewById(R.id.page2BT);
+        bt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    showpage3();
+                    return false;
+                }
+                return  false;
+            }
+        });
+    }
+
+
+    public void showpage3()
+    {
+        final ViewGroup mainview = findViewById(R.id.mainview);
+        Scene scene = Scene.getSceneForLayout(mainview, R.layout.drank1, getApplicationContext());
+        Transition transition = new AutoTransition();
+        TransitionManager.go(scene, transition);
+
+        ImageView base1 = (ImageView)findViewById(R.id.base1);
+        base1.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base2 = (ImageView)findViewById(R.id.base2);
+        base2.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base3 = (ImageView)findViewById(R.id.base3);
+        base3.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base4 = (ImageView)findViewById(R.id.base4);
+        base4.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base5 = (ImageView)findViewById(R.id.base5);
+        base5.setImageDrawable(getDrawable(R.drawable.base1));
+        ImageView base6 = (ImageView)findViewById(R.id.base6);
+        base6.setImageDrawable(getDrawable(R.drawable.base1));
+
+        final ImageView water1 = (ImageView)findViewById(R.id.water1);
+        water1.setImageDrawable(getDrawable(R.drawable.energy1));
+        final ImageView water2 = (ImageView)findViewById(R.id.water2);
+        water2.setImageDrawable(getDrawable(R.drawable.orange));
+        final ImageView water3 = (ImageView)findViewById(R.id.water3);
+        water3.setImageDrawable(getDrawable(R.drawable.raspberry));
+        final ImageView water4 = (ImageView)findViewById(R.id.water4);
+        water4.setImageDrawable(getDrawable(R.drawable.cucumber));
+        final ImageView water5 = (ImageView)findViewById(R.id.water5);
+        water5.setImageDrawable(getDrawable(R.drawable.relax));
+        final ImageView water6 = (ImageView)findViewById(R.id.water6);
+        water6.setImageDrawable(getDrawable(R.drawable.lemon));
+
+
+
+        final ImageButton thebt = (ImageButton) findViewById(R.id.bt_custom);
+        thebt.setImageResource(R.drawable.glasswater);
+        thebt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    try {
+                        topay();
+                    } catch (MqttException e) {
+                        e.printStackTrace();
+                    }
+                    return false;
+                }
+                return  false;
+            }
+        });
     }
 
 

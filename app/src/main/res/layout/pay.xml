@@ -51,4 +51,20 @@
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
-    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:onClick="do111"
+        android:alpha="0"
+        android:background="@drawable/roundedbutton"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rectanglebutton"
+        android:text="Button" />
+</LinearLayout>
