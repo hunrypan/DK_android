@@ -433,6 +433,9 @@ public class MainActivity extends AppCompatActivity {
         final ViewGroup mainview = findViewById(R.id.mainview);
         scene = Scene.getSceneForLayout(mainview, R.layout.qrcode, getApplicationContext());
         TransitionManager.go(scene, transition);
+
+        ImageView imgv = findViewById(R.id.page4imgv);
+        imgv.setImageDrawable(getDrawable(R.drawable.screen4));
         makeQR(pustr);
         //makeQR("http://www.windcoffee.club");
     }
