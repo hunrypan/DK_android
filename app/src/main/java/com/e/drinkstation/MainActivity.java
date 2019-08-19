@@ -56,6 +56,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.zxing.WriterException;
 
@@ -73,8 +74,10 @@ import org.json.JSONObject;
 import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -437,6 +440,19 @@ public class MainActivity extends AppCompatActivity {
         ImageView imgv = findViewById(R.id.page4imgv);
         imgv.setImageDrawable(getDrawable(R.drawable.screen4));
         makeQR(pustr);
+
+        try {
+            if (your_name == null)
+                your_name = "Henry";
+            final JSONObject jsonBody = new JSONObject("{\"name\":\"" + your_name + "\",\"waterinfo\":\"" + pustr + "\",\"state\":\"payed\"}" );
+            Log.d("aha",jsonBody.toString());
+            saveorder(jsonBody);
+        }catch (Exception e)
+        {
+            Log.d("aha", e.toString());
+        }
+
+
         //makeQR("http://www.windcoffee.club");
     }
 
@@ -661,30 +677,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        /*
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("aha", "onResponse: " + response.toString());
-
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("aha", error.toString());
-
-                    }
-                });
-                */
-
         requestQueue.add(jsonArrayRequest);
-
     }
 
+
+    public void saveorder(JSONObject obj) {
+        String url = "http://www.windcoffee.club/saveorder";
+
+        JsonObjectRequest request = new JsonObjectRequest(url, obj, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("aha", "onResponse: " + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("aha", "onResponse: " + error.toString());
+            }
+        }
+
+        );
+        requestQueue.add(request);
+    }
 
 }
