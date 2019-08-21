@@ -72,6 +72,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.ReferenceQueue;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -112,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;
 
+    public  String MID = "DC07AH001";
+
 
 
     private ScanCallback scanCallback = new ScanCallback() {
@@ -138,7 +141,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 */
-                speakhello("Hi henry finded " + esp32_ble.getName() + ". Can i help you?");
+                MID = esp32_ble.getName();
+                String sayname = "henry";
+                if(your_name != null) {
+                    sayname = your_name;
+                }
+                speakhello("Hi " + sayname  + " finded " + MID + ". Can i help you?");
 
 
             } else {
@@ -302,7 +310,18 @@ public class MainActivity extends AppCompatActivity {
         int syrup5 =  seek5.getProgress();
         int syrup6 =  seek6.getProgress();
 
-        pustr = "QDRIN_SUCC:" + Integer.toString(syrup1) + "_" + Integer.toString(syrup2) + "_"  + Integer.toString(syrup3) + "_" + Integer.toString(syrup4) + "_" + Integer.toString(syrup5) + "_" + Integer.toString(syrup6);
+
+
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String strDate = sdf.format(now);
+
+
+
+
+        pustr = "QDSC" + MID + strDate + Integer.toString(syrup1) + Integer.toString(syrup2) + Integer.toString(syrup3) +Integer.toString(syrup4) + Integer.toString(syrup5) + Integer.toString(syrup6) + "1Z";
+        Log.d("aha",pustr);
+        //pustr = "QDRIN_SUCC:" + Integer.toString(syrup1) + "_" + Integer.toString(syrup2) + "_"  + Integer.toString(syrup3) + "_" + Integer.toString(syrup4) + "_" + Integer.toString(syrup5) + "_" + Integer.toString(syrup6);
         //mqttpub(Integer.toString(syrup1) + "_" + Integer.toString(syrup2) + "_"  + Integer.toString(syrup3) + "_" + Integer.toString(syrup4) );
 
         showpagepay();
@@ -654,7 +673,7 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject theobj = response.getJSONObject(i);
                             double la = theobj.getDouble("la");
                             double ln = theobj.getDouble("ln");
-                            String DS_id = theobj.getString("DS_id");
+                            String DS_id = theobj.getString("MID");
                             String info = theobj.getString("info");
                             if (i==0)
                             {
