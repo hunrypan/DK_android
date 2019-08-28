@@ -43,7 +43,7 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:max="10"
+                android:max="5"
                 android:progress="0" />
 
 
@@ -79,7 +79,7 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:max="10"
+                android:max="5"
                 android:progress="0" />
 
         </LinearLayout>
@@ -125,7 +125,7 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:max="10"
+                android:max="5"
                 android:progress="0" />
 
 
@@ -161,7 +161,7 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:max="10"
+                android:max="5"
                 android:progress="0" />
 
         </LinearLayout>
@@ -207,7 +207,7 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:max="10"
+                android:max="5"
                 android:progress="0" />
 
 
@@ -243,7 +243,7 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:max="10"
+                android:max="5"
                 android:progress="0" />
 
         </LinearLayout>

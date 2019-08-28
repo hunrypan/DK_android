@@ -463,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (your_name == null)
                 your_name = "Henry";
-            final JSONObject jsonBody = new JSONObject("{\"name\":\"" + your_name + "\",\"waterinfo\":\"" + pustr + "\",\"state\":\"payed\"}" );
+            final JSONObject jsonBody = new JSONObject("{\"name\":\"" + your_name + "\",\"waterinfo\":\"" + pustr + "\",\"state\":\"payed\",\"price\":\"1.25\"}");
             Log.d("aha",jsonBody.toString());
             saveorder(jsonBody);
         }catch (Exception e)
@@ -549,6 +549,58 @@ public class MainActivity extends AppCompatActivity {
                 return  false;
             }
         });
+
+        Button bt2 = (Button)findViewById(R.id.page1BT2);
+        bt2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    showpage3();
+                    return false;
+                }
+                return  false;
+            }
+        });
+
+        Button bt3 = (Button)findViewById(R.id.page1BT3);
+        bt3.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    Date now = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String strDate = sdf.format(now);
+                    pustr = "QDSC" + MID + strDate + "AK" + "00000001Z";
+                    Log.d("aha",pustr);
+                    showpagepay();
+                    return false;
+                }
+                return  false;
+            }
+        });
+
+        Button bt4 = (Button)findViewById(R.id.page1BT4);
+        bt4.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    Date now = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String strDate = sdf.format(now);
+                    pustr = "QDSC" + MID + strDate + "HT" + "00000001Z";
+                    Log.d("aha",pustr);
+                    showpagepay();
+                    return false;
+                }
+                return  false;
+            }
+        });
     }
 
     public void showpage2()
@@ -573,6 +625,132 @@ public class MainActivity extends AppCompatActivity {
                 return  false;
             }
         });
+    }
+
+
+    public void showpage3()
+    {
+        final ViewGroup mainview = findViewById(R.id.mainview);
+        Scene scene = Scene.getSceneForLayout(mainview, R.layout.page3, getApplicationContext());
+        Transition transition = new AutoTransition();
+        TransitionManager.go(scene, transition);
+        ImageView base1 = (ImageView)findViewById(R.id.page3imgv);
+        base1.setImageDrawable(getDrawable(R.drawable.screen5));
+
+        final ImageView imageView1 = (ImageView)findViewById(R.id.page3imageV1);
+        imageView1.setImageDrawable(getDrawable(R.drawable.bticon1));
+
+        final ImageView imageView2 = (ImageView)findViewById(R.id.page3imageV2);
+        imageView2.setImageDrawable(getDrawable(R.drawable.bticon1));
+
+        final ImageView imageView3 = (ImageView)findViewById(R.id.page3imageV3);
+        imageView3.setImageDrawable(getDrawable(R.drawable.bticon1));
+
+        Button bt = (Button)findViewById(R.id.page3BT);
+        bt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    Date now = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String strDate = sdf.format(now);
+                    pustr = "QDSC" + MID + strDate + "CD" + "00000001Z";
+                    Log.d("aha",pustr);
+                    view.setAlpha((float) 0.7);
+                    showpagepay();
+                    return false;
+                }
+                return  false;
+            }
+        });
+
+        Button bt1 = (Button)findViewById(R.id.page3BT_s1);
+        bt1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    Date now = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String strDate = sdf.format(now);
+                    pustr = "QDSC" + MID + strDate + "CD" + "10000001Z";
+                    Log.d("aha",pustr);
+                    view.setAlpha((float) 0.7);
+                    imageView1.setVisibility(View.VISIBLE);
+                    imageView2.setVisibility(View.INVISIBLE);
+                    imageView3.setVisibility(View.INVISIBLE);
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    view.setAlpha(0);
+                    return false;
+                }
+
+                return  false;
+            }
+        });
+
+
+        Button bt2 = (Button)findViewById(R.id.page3BT_s2);
+        bt2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    Date now = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String strDate = sdf.format(now);
+                    pustr = "QDSC" + MID + strDate + "CD" + "20000001Z";
+                    Log.d("aha",pustr);
+                    view.setAlpha((float) 0.7);
+                    imageView1.setVisibility(View.INVISIBLE);
+                    imageView2.setVisibility(View.VISIBLE);
+                    imageView3.setVisibility(View.INVISIBLE);
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    view.setAlpha(0);
+                    return false;
+                }
+
+                return  false;
+            }
+        });
+
+        Button bt3 = (Button)findViewById(R.id.page3BT_s3);
+        bt3.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    Date now = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String strDate = sdf.format(now);
+                    pustr = "QDSC" + MID + strDate + "CD" + "30000001Z";
+                    Log.d("aha",pustr);
+                    view.setAlpha((float) 0.7);
+                    imageView1.setVisibility(View.INVISIBLE);
+                    imageView2.setVisibility(View.INVISIBLE);
+                    imageView3.setVisibility(View.VISIBLE);
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    view.setAlpha(0);
+                    return false;
+                }
+
+                return  false;
+            }
+        });
+
     }
 
 
