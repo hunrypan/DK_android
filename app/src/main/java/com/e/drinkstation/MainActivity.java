@@ -115,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
     public  String MID = "DC07AH001";
 
+    public  String watercustom = "0";
+
 
 
     private ScanCallback scanCallback = new ScanCallback() {
@@ -294,7 +296,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void topay() throws MqttException {
-        long time = new Date().getTime();
 
         SeekBar seek1 = (SeekBar) findViewById(R.id.seekBar1);
         SeekBar seek2 = (SeekBar) findViewById(R.id.seekBar2);
@@ -310,16 +311,12 @@ public class MainActivity extends AppCompatActivity {
         int syrup5 =  seek5.getProgress();
         int syrup6 =  seek6.getProgress();
 
-
-
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String strDate = sdf.format(now);
 
 
-
-
-        pustr = "QDSC" + MID + strDate + Integer.toString(syrup1) + Integer.toString(syrup2) + Integer.toString(syrup3) +Integer.toString(syrup4) + Integer.toString(syrup5) + Integer.toString(syrup6) + "1Z";
+        pustr = "QDSC" + MID + strDate + "SP" + watercustom + Integer.toString(syrup1) + Integer.toString(syrup2) + Integer.toString(syrup3) +Integer.toString(syrup4) + Integer.toString(syrup5) + Integer.toString(syrup6) + "1Z";
         Log.d("aha",pustr);
         //pustr = "QDRIN_SUCC:" + Integer.toString(syrup1) + "_" + Integer.toString(syrup2) + "_"  + Integer.toString(syrup3) + "_" + Integer.toString(syrup4) + "_" + Integer.toString(syrup5) + "_" + Integer.toString(syrup6);
         //mqttpub(Integer.toString(syrup1) + "_" + Integer.toString(syrup2) + "_"  + Integer.toString(syrup3) + "_" + Integer.toString(syrup4) );
@@ -328,6 +325,34 @@ public class MainActivity extends AppCompatActivity {
 
         //makeQR("ok");
         //QREEncoder qreEncoder = new
+
+    }
+
+
+
+    public void topay2() {
+
+        SeekBar seek1 = (SeekBar) findViewById(R.id.seekBar21);
+        SeekBar seek2 = (SeekBar) findViewById(R.id.seekBar22);
+        SeekBar seek3 = (SeekBar) findViewById(R.id.seekBar23);
+        SeekBar seek4 = (SeekBar) findViewById(R.id.seekBar24);
+        SeekBar seek5 = (SeekBar) findViewById(R.id.seekBar25);
+        SeekBar seek6 = (SeekBar) findViewById(R.id.seekBar26);
+
+        int syrup1 =  seek1.getProgress();
+        int syrup2 =  seek2.getProgress();
+        int syrup3 =  seek3.getProgress();
+        int syrup4 =  seek4.getProgress();
+        int syrup5 =  seek5.getProgress();
+        int syrup6 =  seek6.getProgress();
+
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String strDate = sdf.format(now);
+
+        pustr = "QDSC" + MID + strDate + "CD" + watercustom + Integer.toString(syrup1) + Integer.toString(syrup2) + Integer.toString(syrup3) +Integer.toString(syrup4) + Integer.toString(syrup5) + Integer.toString(syrup6) + "1Z";
+        Log.d("aha",pustr);
+        showpagepay();
 
     }
 
@@ -630,6 +655,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void showpage3()
     {
+
+        watercustom = "2";
         final ViewGroup mainview = findViewById(R.id.mainview);
         Scene scene = Scene.getSceneForLayout(mainview, R.layout.page3, getApplicationContext());
         Transition transition = new AutoTransition();
@@ -646,6 +673,29 @@ public class MainActivity extends AppCompatActivity {
         final ImageView imageView3 = (ImageView)findViewById(R.id.page3imageV3);
         imageView3.setImageDrawable(getDrawable(R.drawable.bticon1));
 
+
+        Button bt_cm = (Button)findViewById(R.id.page3BT2);
+        bt_cm.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    view.setAlpha((float) 0.7);
+                    showpagecustom2();
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    view.setAlpha(0);
+                    return false;
+                }
+                return  false;
+            }
+        });
+
+
         Button bt = (Button)findViewById(R.id.page3BT);
         bt.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -656,10 +706,16 @@ public class MainActivity extends AppCompatActivity {
                     Date now = new Date();
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                     String strDate = sdf.format(now);
-                    pustr = "QDSC" + MID + strDate + "CD" + "00000001Z";
+                    pustr = "QDSC" + MID + strDate + "CD" + watercustom + "0000001Z";
                     Log.d("aha",pustr);
                     view.setAlpha((float) 0.7);
                     showpagepay();
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    view.setAlpha(0);
                     return false;
                 }
                 return  false;
@@ -672,11 +728,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
-                    Date now = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                    String strDate = sdf.format(now);
-                    pustr = "QDSC" + MID + strDate + "CD" + "10000001Z";
-                    Log.d("aha",pustr);
+                    watercustom = "1";
                     view.setAlpha((float) 0.7);
                     imageView1.setVisibility(View.VISIBLE);
                     imageView2.setVisibility(View.INVISIBLE);
@@ -701,11 +753,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
-                    Date now = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                    String strDate = sdf.format(now);
-                    pustr = "QDSC" + MID + strDate + "CD" + "20000001Z";
-                    Log.d("aha",pustr);
+                    watercustom = "2";
                     view.setAlpha((float) 0.7);
                     imageView1.setVisibility(View.INVISIBLE);
                     imageView2.setVisibility(View.VISIBLE);
@@ -729,11 +777,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
-                    Date now = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                    String strDate = sdf.format(now);
-                    pustr = "QDSC" + MID + strDate + "CD" + "30000001Z";
-                    Log.d("aha",pustr);
+                    watercustom = "3";
                     view.setAlpha((float) 0.7);
                     imageView1.setVisibility(View.INVISIBLE);
                     imageView2.setVisibility(View.INVISIBLE);
@@ -833,6 +877,59 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    public void showpagecustom2()
+    {
+        final ViewGroup mainview = findViewById(R.id.mainview);
+        Scene scene = Scene.getSceneForLayout(mainview, R.layout.drank2, getApplicationContext());
+        Transition transition = new AutoTransition();
+        TransitionManager.go(scene, transition);
+
+        ImageView base1 = (ImageView)findViewById(R.id.base21);
+        base1.setImageDrawable(getDrawable(R.drawable.base2));
+        ImageView base2 = (ImageView)findViewById(R.id.base22);
+        base2.setImageDrawable(getDrawable(R.drawable.base2));
+        ImageView base3 = (ImageView)findViewById(R.id.base23);
+        base3.setImageDrawable(getDrawable(R.drawable.base2));
+        ImageView base4 = (ImageView)findViewById(R.id.base24);
+        base4.setImageDrawable(getDrawable(R.drawable.base2));
+        ImageView base5 = (ImageView)findViewById(R.id.base25);
+        base5.setImageDrawable(getDrawable(R.drawable.base2));
+        ImageView base6 = (ImageView)findViewById(R.id.base26);
+        base6.setImageDrawable(getDrawable(R.drawable.base2));
+
+        final ImageView water1 = (ImageView)findViewById(R.id.water21);
+        water1.setImageDrawable(getDrawable(R.drawable.energy1));
+        final ImageView water2 = (ImageView)findViewById(R.id.water22);
+        water2.setImageDrawable(getDrawable(R.drawable.orange));
+        final ImageView water3 = (ImageView)findViewById(R.id.water23);
+        water3.setImageDrawable(getDrawable(R.drawable.raspberry));
+        final ImageView water4 = (ImageView)findViewById(R.id.water24);
+        water4.setImageDrawable(getDrawable(R.drawable.cucumber));
+        final ImageView water5 = (ImageView)findViewById(R.id.water25);
+        water5.setImageDrawable(getDrawable(R.drawable.relax));
+        final ImageView water6 = (ImageView)findViewById(R.id.water26);
+        water6.setImageDrawable(getDrawable(R.drawable.lemon));
+
+
+
+        final ImageView thebt = (ImageView) findViewById(R.id.imgvpaybt2);
+        thebt.setImageResource(R.drawable.paybt);
+        thebt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    topay2();
+                    return false;
+                }
+                return  false;
+            }
+        });
+    }
+
 
 
     public void loadDS() {
