@@ -630,12 +630,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void showpage2()
     {
+
         final ViewGroup mainview = findViewById(R.id.mainview);
         Scene scene = Scene.getSceneForLayout(mainview, R.layout.page2, getApplicationContext());
         Transition transition = new AutoTransition();
         TransitionManager.go(scene, transition);
+
+        watercustom = "2";
         ImageView base1 = (ImageView)findViewById(R.id.page2imgv);
         base1.setImageDrawable(getDrawable(R.drawable.screen2));
+
+        final ImageView imageView1 = (ImageView)findViewById(R.id.page2imageV1);
+        imageView1.setImageDrawable(getDrawable(R.drawable.bticon2));
+
+        final ImageView imageView2 = (ImageView)findViewById(R.id.page2imageV2);
+        imageView2.setImageDrawable(getDrawable(R.drawable.bticon2));
+
+        final ImageView imageView3 = (ImageView)findViewById(R.id.page2imageV3);
+        imageView3.setImageDrawable(getDrawable(R.drawable.bticon2));
 
         Button bt = (Button)findViewById(R.id.page2BT);
         bt.setOnTouchListener(new View.OnTouchListener() {
@@ -644,12 +656,122 @@ public class MainActivity extends AppCompatActivity {
 
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
+                    view.setAlpha((float) 0.7);
+                    Date now = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String strDate = sdf.format(now);
+                    pustr = "QDSC" + MID + strDate + "SP" + watercustom + "0000001Z";
+                    Log.d("aha",pustr);
+                    showpagepay();
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+            {
+                view.setAlpha(0);
+                return false;
+            }
+
+                return  false;
+            }
+        });
+
+
+        Button bt2 = (Button)findViewById(R.id.page2btcustom);
+        bt2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    view.setAlpha((float) 0.7);
                     showpagecustom();
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    view.setAlpha(0);
                     return false;
                 }
                 return  false;
             }
         });
+
+
+        Button bts1 = (Button)findViewById(R.id.page2BT_s1);
+        bts1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    watercustom = "1";
+                    view.setAlpha((float) 0.7);
+                    imageView1.setVisibility(View.VISIBLE);
+                    imageView2.setVisibility(View.INVISIBLE);
+                    imageView3.setVisibility(View.INVISIBLE);
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    view.setAlpha(0);
+                    return false;
+                }
+
+                return  false;
+            }
+        });
+
+
+        Button bts2 = (Button)findViewById(R.id.page2BT_s2);
+        bts2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    watercustom = "2";
+                    view.setAlpha((float) 0.7);
+                    imageView1.setVisibility(View.INVISIBLE);
+                    imageView2.setVisibility(View.VISIBLE);
+                    imageView3.setVisibility(View.INVISIBLE);
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    view.setAlpha(0);
+                    return false;
+                }
+
+                return  false;
+            }
+        });
+
+        Button bts3 = (Button)findViewById(R.id.page2BT_s3);
+        bts3.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    watercustom = "3";
+                    view.setAlpha((float) 0.7);
+                    imageView1.setVisibility(View.INVISIBLE);
+                    imageView2.setVisibility(View.INVISIBLE);
+                    imageView3.setVisibility(View.VISIBLE);
+                    return false;
+                }
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+                {
+                    view.setAlpha(0);
+                    return false;
+                }
+
+                return  false;
+            }
+        });
+
     }
 
 
@@ -915,7 +1037,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final ImageView thebt = (ImageView) findViewById(R.id.imgvpaybt2);
-        thebt.setImageResource(R.drawable.paybt);
+        thebt.setImageResource(R.drawable.paybt2);
         thebt.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
