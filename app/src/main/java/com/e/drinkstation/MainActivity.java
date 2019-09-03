@@ -942,7 +942,25 @@ public class MainActivity extends AppCompatActivity {
                 return  false;
             }
         });
+
+        Button bt2 = (Button)findViewById(R.id.cancelBT);
+        bt2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    view.setAlpha((float) 0.7);
+                    showpage1();
+                    return false;
+                }
+                return  false;
+            }
+        });
+
     }
+
+
 
 
     public void showpagecustom()
