@@ -383,6 +383,9 @@ public class MainActivity extends AppCompatActivity {
             ImageView imgv = (ImageView) findViewById(R.id.imagev_cup);
             imgv.setImageDrawable(getDrawable(R.drawable.cup));
 
+            ImageView imgvbk = (ImageView) findViewById(R.id.todayimgv1);
+            imgvbk.setImageDrawable(getDrawable(R.drawable.leaves));
+
            //LinearLayout linearLayout = findViewById(R.id.showused);
             //DayDrinkView myView = new DayDrinkView(this);
             //linearLayout.addView(myView);

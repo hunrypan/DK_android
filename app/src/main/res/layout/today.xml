@@ -1,39 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
-    <FrameLayout
+    <ImageView
+        android:id="@+id/todayimgv1"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/leaves"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="28dp" />
 
-        <com.e.drinkstation.avinfoView
-            android:layout_width="180dp"
-            android:layout_gravity="center"
-            android:layout_height="180dp"/>
+    <com.e.drinkstation.avinfoView
+        android:id="@+id/avinfoView"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="236dp"
+        android:alpha="0.8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-        <TextView
-            android:id="@+id/textView_daydrink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="100/120L"
-            android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textView_daydrink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="76dp"
+        android:text="100/120L"
+        android:textColor="#3F51B5"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/avinfoView"
+        app:layout_constraintTop_toTopOf="@+id/avinfoView" />
 
-
-    </FrameLayout>
 
     <ImageView
         android:id="@+id/imagev_cup"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="48dp"
+        android:alpha="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/cup" />
 
     <TextView
@@ -41,9 +60,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
         android:text="Save 281"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textColor="#3F51B5"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
