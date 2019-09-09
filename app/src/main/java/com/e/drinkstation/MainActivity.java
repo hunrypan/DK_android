@@ -71,6 +71,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.ReferenceQueue;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,6 +88,8 @@ import java.util.Map;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
+import static com.e.drinkstation.R.id.todayimgv1;
+
 public class MainActivity extends AppCompatActivity {
 
     public MqttAndroidClient client;
@@ -93,9 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     public  String pustr;
 
-    public  String your_name;
-
-    public  String your_weight;
+    public  JSONObject jsoninfo;
 
     public TextToSpeech textToSpeech;
 
@@ -145,10 +150,15 @@ public class MainActivity extends AppCompatActivity {
 */
                 MID = esp32_ble.getName();
                 String sayname = "henry";
-                if(your_name != null) {
-                    sayname = your_name;
+                try {
+                    if(jsoninfo.getString("name") != null) {
+                        sayname = jsoninfo.getString("name");
+                        speakhello("Hi " + sayname  + " finded " + MID + ". Can i help you?");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                speakhello("Hi " + sayname  + " finded " + MID + ". Can i help you?");
+
 
 
             } else {
@@ -192,6 +202,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        saveinfo("{\"name\":\"henry\"}");
+        Log.d("aha", "save on ");
+        String theinfo1 = loadinfo();
+
+        try {
+            JSONObject jobj = new JSONObject(theinfo1);
+            Log.d("aha", "name is " + jobj.getString("name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            jsoninfo = new JSONObject(loadinfo());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
         requestQueue = Volley.newRequestQueue(this);
@@ -380,10 +407,35 @@ public class MainActivity extends AppCompatActivity {
             scene = Scene.getSceneForLayout(mainview, R.layout.today, getApplicationContext());
             TransitionManager.go(scene, transition);
 
+            avinfoView avview = (avinfoView) findViewById(R.id.avinfoView);
+            TextView textView_daydrink = (TextView) findViewById(R.id.textView_daydrink);
+            TextView textView_daysave = (TextView) findViewById(R.id.textView_daysave);
+            Log.d("aha", jsoninfo.toString());
+            try {
+                int weight = Integer.parseInt(jsoninfo.getString("weight"));
+                Log.d("aha", "weight: " + weight);
+
+                int water = jsoninfo.getInt("water");
+
+                float angle = water / weight * 18;
+                Log.d("aha", "angle " + angle);
+                avview.setAngle((int)angle);
+
+                textView_daydrink.setText(water +"/" + weight*20);
+                textView_daysave.setText("Saved " + (int)(water/450));
+                avview.invalidate();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+
+
             ImageView imgv = (ImageView) findViewById(R.id.imagev_cup);
             imgv.setImageDrawable(getDrawable(R.drawable.cup));
 
-            ImageView imgvbk = (ImageView) findViewById(R.id.todayimgv1);
+            ImageView imgvbk = (ImageView) findViewById(todayimgv1);
             imgvbk.setImageDrawable(getDrawable(R.drawable.leaves));
 
            //LinearLayout linearLayout = findViewById(R.id.showused);
@@ -398,15 +450,22 @@ public class MainActivity extends AppCompatActivity {
             final EditText t1 = (EditText) findViewById(R.id.username);
             final EditText t2 = (EditText) findViewById(R.id.userweight);
 
-            if (your_name != null)
-            {
-                t1.setText(your_name);
+
+            try {
+                if (jsoninfo.getString("name") != null)
+                {
+                    t1.setText(jsoninfo.getString("name"));
+                }
+
+                if (jsoninfo.getString("weight") != null)
+                {
+                    t2.setText(jsoninfo.getString("weight"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-            if (your_weight != null)
-            {
-                t2.setText(your_weight);
-            }
+
 
             t1.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -421,7 +480,12 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    your_name = t1.getText().toString();
+                    try {
+                        jsoninfo.put("name",t1.getText().toString());
+                        saveinfo(jsoninfo.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
                 });
 
@@ -439,7 +503,12 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    your_weight = t2.getText().toString();
+                    try {
+                        jsoninfo.put("weight",t2.getText().toString());
+                        saveinfo(jsoninfo.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 
@@ -489,11 +558,26 @@ public class MainActivity extends AppCompatActivity {
         makeQR(pustr);
 
         try {
-            if (your_name == null)
-                your_name = "Henry";
+            String your_name = "Henry";
+
+            if (jsoninfo.getString("name") != null) {
+                    your_name = jsoninfo.getString("name");
+            }
             final JSONObject jsonBody = new JSONObject("{\"name\":\"" + your_name + "\",\"waterinfo\":\"" + pustr + "\",\"state\":\"payed\",\"price\":\"1.25\"}");
             Log.d("aha",jsonBody.toString());
             saveorder(jsonBody);
+
+
+
+            if (jsoninfo.has("water"))
+            {
+                jsoninfo.put("water", jsoninfo.getLong("water") + 450);
+            }else {
+                jsoninfo.put("water", 450);
+            }
+            Log.d("aha", jsoninfo.toString());
+            saveinfo(jsoninfo.toString());
+
         }catch (Exception e)
         {
             Log.d("aha", e.toString());
@@ -1136,5 +1220,54 @@ public class MainActivity extends AppCompatActivity {
         );
         requestQueue.add(request);
     }
+
+
+   public  void saveinfo(String str)
+   {
+       String filename = "myinfo.json";
+       String fileContents = str;
+       FileOutputStream outputStream;
+
+       File file = new File(getFilesDir(), filename);
+       if (file.delete()) {
+           Log.d("aha", "file delete");
+           try {
+               outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+               outputStream.write(fileContents.getBytes());
+               outputStream.close();
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+       }
+   }
+
+   public String loadinfo()
+   {
+       String jsonstr = null;
+       String filename = "myinfo.json";
+
+       File directory = this.getFilesDir();
+       File file = new File(directory, filename);
+
+       try
+       { FileInputStream is = openFileInput(filename);
+
+       int size = is.available();
+
+       byte[] buffer = new byte[size];
+
+       is.read(buffer);
+
+       is.close();
+
+       jsonstr = new String(buffer, "UTF-8");
+
+
+   } catch (IOException ex) {
+        ex.printStackTrace();
+        return null;
+    }
+        return jsonstr;
+   }
 
 }
