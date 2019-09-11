@@ -88,6 +88,7 @@ import java.util.Map;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
+import static com.e.drinkstation.R.id.textView;
 import static com.e.drinkstation.R.id.todayimgv1;
 
 public class MainActivity extends AppCompatActivity {
@@ -121,6 +122,14 @@ public class MainActivity extends AppCompatActivity {
     public  String MID = "DC07AH001";
 
     public  String watercustom = "0";
+
+    public  String watertype = "";
+
+    public  String watercup = "2";
+
+    public  String watersy ="000000";
+
+    public  String price = "1.25";
 
 
 
@@ -338,17 +347,13 @@ public class MainActivity extends AppCompatActivity {
         int syrup5 =  seek5.getProgress();
         int syrup6 =  seek6.getProgress();
 
-        Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String strDate = sdf.format(now);
+        watertype = "SP";
+        watersy = Integer.toString(syrup1) + Integer.toString(syrup2) + Integer.toString(syrup3) +Integer.toString(syrup4) + Integer.toString(syrup5) + Integer.toString(syrup6);
 
-
-        pustr = "QDSC" + MID + strDate + "SP" + watercustom + Integer.toString(syrup1) + Integer.toString(syrup2) + Integer.toString(syrup3) +Integer.toString(syrup4) + Integer.toString(syrup5) + Integer.toString(syrup6) + "1Z";
-        Log.d("aha",pustr);
         //pustr = "QDRIN_SUCC:" + Integer.toString(syrup1) + "_" + Integer.toString(syrup2) + "_"  + Integer.toString(syrup3) + "_" + Integer.toString(syrup4) + "_" + Integer.toString(syrup5) + "_" + Integer.toString(syrup6);
         //mqttpub(Integer.toString(syrup1) + "_" + Integer.toString(syrup2) + "_"  + Integer.toString(syrup3) + "_" + Integer.toString(syrup4) );
 
-        showpagepay();
+        showcupchoose();
 
         //makeQR("ok");
         //QREEncoder qreEncoder = new
@@ -373,13 +378,9 @@ public class MainActivity extends AppCompatActivity {
         int syrup5 =  seek5.getProgress();
         int syrup6 =  seek6.getProgress();
 
-        Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String strDate = sdf.format(now);
-
-        pustr = "QDSC" + MID + strDate + "CD" + watercustom + Integer.toString(syrup1) + Integer.toString(syrup2) + Integer.toString(syrup3) +Integer.toString(syrup4) + Integer.toString(syrup5) + Integer.toString(syrup6) + "1Z";
-        Log.d("aha",pustr);
-        showpagepay();
+        watertype = "CD";
+        watersy = Integer.toString(syrup1) + Integer.toString(syrup2) + Integer.toString(syrup3) +Integer.toString(syrup4) + Integer.toString(syrup5) + Integer.toString(syrup6);
+        showcupchoose();
 
     }
 
@@ -523,6 +524,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else if (id == R.id.menu_DK)
         {
+            resetdata();
             showpage1();
         }
 
@@ -583,6 +585,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("aha", e.toString());
         }
 
+        resetdata();
 
         //makeQR("http://www.windcoffee.club");
     }
@@ -631,6 +634,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public void  resetdata()
+    {
+        watercustom = "0";
+
+        watertype = "";
+
+        watercup = "2";
+
+        watersy ="000000";
+
+        price = "1.25";
+    }
 
     public void speakhello(String str) {
         Bundle bundle = new Bundle();
@@ -683,12 +699,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
-                    Date now = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                    String strDate = sdf.format(now);
-                    pustr = "QDSC" + MID + strDate + "AK" + "00000001Z";
-                    Log.d("aha",pustr);
-                    showpagepay();
+                    watertype = "AK";
+                    showcupchoose();
+
                     return false;
                 }
                 return  false;
@@ -702,12 +715,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
-                    Date now = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                    String strDate = sdf.format(now);
-                    pustr = "QDSC" + MID + strDate + "HT" + "00000001Z";
-                    Log.d("aha",pustr);
-                    showpagepay();
+                    watertype = "HT";
+                    showcupchoose();
                     return false;
                 }
                 return  false;
@@ -744,12 +753,9 @@ public class MainActivity extends AppCompatActivity {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
                     view.setAlpha((float) 0.7);
-                    Date now = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                    String strDate = sdf.format(now);
-                    pustr = "QDSC" + MID + strDate + "SP" + watercustom + "0000001Z";
-                    Log.d("aha",pustr);
-                    showpagepay();
+
+                    watertype = "SP";
+                    showcupchoose();
                     return false;
                 }
 
@@ -912,13 +918,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
-                    Date now = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                    String strDate = sdf.format(now);
-                    pustr = "QDSC" + MID + strDate + "CD" + watercustom + "0000001Z";
-                    Log.d("aha",pustr);
+                    watertype = "CD";
                     view.setAlpha((float) 0.7);
-                    showpagepay();
+                    showcupchoose();
                     return false;
                 }
 
@@ -1007,7 +1009,122 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void showpagepay()
+    public void showcupchoose() {
+        final ViewGroup mainview = findViewById(R.id.mainview);
+        Scene scene = Scene.getSceneForLayout(mainview, R.layout.cupchoose, getApplicationContext());
+        Transition transition = new AutoTransition();
+        TransitionManager.go(scene, transition);
+        ImageView base1 = (ImageView) findViewById(R.id.cupchoose_imgv);
+        base1.setImageDrawable(getDrawable(R.drawable.cupchoose));
+
+        final TextView t1 = (TextView)findViewById(R.id.sy1_tx);
+        t1.setText(Integer.parseInt(watersy.substring(0,1))*20 + "%");
+
+        final TextView t2 = (TextView)findViewById(R.id.sy2_tx);
+        t2.setText(Integer.parseInt(watersy.substring(1,2))*20 + "%");
+
+        final TextView t3 = (TextView)findViewById(R.id.sy3_tx);
+        t3.setText(Integer.parseInt(watersy.substring(2,3))*20 + "%");
+
+        final TextView t4 = (TextView)findViewById(R.id.sy4_tx);
+        t4.setText(Integer.parseInt(watersy.substring(3,4))*20 + "%");
+
+        final TextView t5 = (TextView)findViewById(R.id.sy5_tx);
+        t5.setText(Integer.parseInt(watersy.substring(4,5))*20 + "%");
+
+        final TextView t6 = (TextView)findViewById(R.id.sy6_tx);
+        t6.setText(Integer.parseInt(watersy.substring(5,6))*20 + "%");
+
+        final TextView casttx = (TextView)findViewById(R.id.cast_tx);
+        casttx.setText(price + "$");
+
+
+        Button topay_bt = (Button)findViewById(R.id.cuptopay_bt);
+        topay_bt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    Date now = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String strDate = sdf.format(now);
+                    pustr = "QDSC" + MID + strDate + watertype + watercustom + watersy + watercup + "Z";
+                    Log.d("aha",pustr);
+                    showpagepay();
+                    return false;
+                }
+                return  false;
+            }
+        });
+
+        final Button lcup_bt;
+        final Button scup_bt;
+        final Button mcup_bt;
+        lcup_bt = (Button)findViewById(R.id.lcup_bt);
+        mcup_bt = (Button)findViewById(R.id.mcup_bt);
+        scup_bt = (Button)findViewById(R.id.scup_bt);
+
+        scup_bt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    watercup = "1";
+                    price = "1";
+                    casttx.setText(price + "$");
+                    lcup_bt.setAlpha((float)0.2);
+                    mcup_bt.setAlpha((float)0.2);
+                    scup_bt.setAlpha(0);
+                    return false;
+                }
+                return  false;
+            }
+        });
+
+
+        mcup_bt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    watercup = "2";
+                    price ="1.25";
+                    casttx.setText(price + "$");
+                    lcup_bt.setAlpha((float)0.2);
+                    mcup_bt.setAlpha(0);
+                    scup_bt.setAlpha((float)0.2);
+                    return false;
+                }
+                return  false;
+            }
+        });
+
+
+        lcup_bt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    watercup = "3";
+                    price = "1.75";
+                    casttx.setText(price + "$");
+                    lcup_bt.setAlpha(0);
+                    mcup_bt.setAlpha((float)0.2);
+                    scup_bt.setAlpha((float)0.2);
+                    return false;
+                }
+                return  false;
+            }
+        });
+
+    }
+
+
+        public void showpagepay()
     {
         final ViewGroup mainview = findViewById(R.id.mainview);
         Scene scene = Scene.getSceneForLayout(mainview, R.layout.pay, getApplicationContext());
@@ -1015,6 +1132,9 @@ public class MainActivity extends AppCompatActivity {
         TransitionManager.go(scene, transition);
         ImageView base1 = (ImageView)findViewById(R.id.page3imgv);
         base1.setImageDrawable(getDrawable(R.drawable.screen3));
+
+        TextView price_tx = (TextView)findViewById(R.id.paycast_tx);
+        price_tx.setText(price + "$");
 
         Button bt = (Button)findViewById(R.id.page3BT);
         bt.setOnTouchListener(new View.OnTouchListener() {
@@ -1038,6 +1158,7 @@ public class MainActivity extends AppCompatActivity {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
                 {
                     view.setAlpha((float) 0.7);
+                    resetdata();
                     showpage1();
                     return false;
                 }

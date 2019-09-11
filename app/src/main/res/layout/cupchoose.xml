@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/cupchoose_imgv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/cupchoose"
+        />
+
+    <Button
+        android:id="@+id/scup_bt"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginBottom="180dp"
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/mcup_bt"
+        android:layout_width="50dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="149dp"
+        android:layout_marginBottom="176dp"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/lcup_bt"
+        android:layout_width="56dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="61dp"
+        android:layout_marginBottom="182dp"
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/cuptopay_bt"
+        android:layout_width="115dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="122dp"
+        android:alpha="0"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/cupchoose_imgv"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/cast_tx"
+        android:layout_width="90dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="90dp"
+        android:text="3.2$"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <TextView
+        android:id="@+id/sy2_tx"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="96dp"
+        android:text="0%"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/sy3_tx"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="116dp"
+        android:text="10%"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sy1_tx"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="136dp"
+        android:text="0%"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sy6_tx"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="230dp"
+        android:layout_marginTop="96dp"
+        android:text="0%"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sy4_tx"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="116dp"
+        android:text="18%"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sy5_tx"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="230dp"
+        android:layout_marginTop="136dp"
+        android:text="20%"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
