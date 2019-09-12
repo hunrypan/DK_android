@@ -1235,30 +1235,17 @@ public class MainActivity extends AppCompatActivity {
         TransitionManager.go(scene, transition);
 
         ImageView base1 = (ImageView)findViewById(R.id.base21);
-        base1.setImageDrawable(getDrawable(R.drawable.base2));
+        base1.setImageDrawable(getDrawable(R.drawable.bot1));
         ImageView base2 = (ImageView)findViewById(R.id.base22);
-        base2.setImageDrawable(getDrawable(R.drawable.base2));
+        base2.setImageDrawable(getDrawable(R.drawable.bot2));
         ImageView base3 = (ImageView)findViewById(R.id.base23);
-        base3.setImageDrawable(getDrawable(R.drawable.base2));
+        base3.setImageDrawable(getDrawable(R.drawable.bot3));
         ImageView base4 = (ImageView)findViewById(R.id.base24);
-        base4.setImageDrawable(getDrawable(R.drawable.base2));
+        base4.setImageDrawable(getDrawable(R.drawable.bot4));
         ImageView base5 = (ImageView)findViewById(R.id.base25);
-        base5.setImageDrawable(getDrawable(R.drawable.base2));
+        base5.setImageDrawable(getDrawable(R.drawable.bot5));
         ImageView base6 = (ImageView)findViewById(R.id.base26);
-        base6.setImageDrawable(getDrawable(R.drawable.base2));
-
-        final ImageView water1 = (ImageView)findViewById(R.id.water21);
-        water1.setImageDrawable(getDrawable(R.drawable.energy1));
-        final ImageView water2 = (ImageView)findViewById(R.id.water22);
-        water2.setImageDrawable(getDrawable(R.drawable.orange));
-        final ImageView water3 = (ImageView)findViewById(R.id.water23);
-        water3.setImageDrawable(getDrawable(R.drawable.raspberry));
-        final ImageView water4 = (ImageView)findViewById(R.id.water24);
-        water4.setImageDrawable(getDrawable(R.drawable.cucumber));
-        final ImageView water5 = (ImageView)findViewById(R.id.water25);
-        water5.setImageDrawable(getDrawable(R.drawable.relax));
-        final ImageView water6 = (ImageView)findViewById(R.id.water26);
-        water6.setImageDrawable(getDrawable(R.drawable.lemon));
+        base6.setImageDrawable(getDrawable(R.drawable.bot6));
 
 
 

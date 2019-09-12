@@ -30,12 +30,6 @@
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/base2" />
 
-                <ImageView
-                    android:id="@+id/water21"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/orange" />
             </FrameLayout>
 
             <SeekBar
@@ -66,12 +60,6 @@
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/base2" />
 
-                <ImageView
-                    android:id="@+id/water22"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/orange" />
             </FrameLayout>
 
             <SeekBar
@@ -112,12 +100,6 @@
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/base2" />
 
-                <ImageView
-                    android:id="@+id/water23"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/orange" />
             </FrameLayout>
 
             <SeekBar
@@ -147,13 +129,6 @@
                     android:layout_height="120dp"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/base2" />
-
-                <ImageView
-                    android:id="@+id/water24"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/orange" />
             </FrameLayout>
 
             <SeekBar
@@ -194,12 +169,6 @@
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/base2" />
 
-                <ImageView
-                    android:id="@+id/water25"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/orange" />
             </FrameLayout>
 
             <SeekBar
@@ -228,14 +197,9 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/base2" />
+                    app:srcCompat="@drawable/bot6" />
 
-                <ImageView
-                    android:id="@+id/water26"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/orange" />
+
             </FrameLayout>
 
             <SeekBar
