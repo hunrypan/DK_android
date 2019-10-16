@@ -1269,7 +1269,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadDS() {
 
-        String url = "http://www.windcoffee.club/mapinfo";
+        String url = "http://www.windcoffee.club:8088/mapinfo";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -1311,7 +1311,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void saveorder(JSONObject obj) {
-        String url = "http://www.windcoffee.club/saveorder";
+        String url = "http://www.windcoffee.club:8088/saveorder";
 
         JsonObjectRequest request = new JsonObjectRequest(url, obj, new Response.Listener<JSONObject>() {
             @Override
@@ -1351,30 +1351,32 @@ public class MainActivity extends AppCompatActivity {
 
    public String loadinfo()
    {
-       String jsonstr = null;
+       String jsonstr = "{\"name\":\"\"}";
        String filename = "myinfo.json";
 
        File directory = this.getFilesDir();
        File file = new File(directory, filename);
 
-       try
-       { FileInputStream is = openFileInput(filename);
+       if(file.exists()) {
+           try {
+               FileInputStream is = openFileInput(filename);
 
-       int size = is.available();
+               int size = is.available();
 
-       byte[] buffer = new byte[size];
+               byte[] buffer = new byte[size];
 
-       is.read(buffer);
+               is.read(buffer);
 
-       is.close();
+               is.close();
 
-       jsonstr = new String(buffer, "UTF-8");
+               jsonstr = new String(buffer, "UTF-8");
 
 
-   } catch (IOException ex) {
-        ex.printStackTrace();
-        return null;
-    }
+           } catch (IOException ex) {
+               ex.printStackTrace();
+               return jsonstr;
+           }
+       }
         return jsonstr;
    }
 
